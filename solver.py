@@ -6,6 +6,9 @@ from MahjongProblem import MahjongProblem
 import subprocess
 shanten_path = r'C:\Users\trana\Desktop\cse537-project\ShantenCalculator\ShantenCalculator\bin\Debug\net6.0\ShantenCalculator.exe'
 
+import time
+import tracemalloc
+
 with open('initial_state.txt', 'r') as f:
     lines = f.readlines()
     hand = lines[0].strip()
@@ -32,7 +35,7 @@ def A_star_search(start, h):
     while frontier:
         current = heapq.heappop(frontier)
         if current[1].goal_test():
-            # print(len(explored))
+            print(f'States explored: {len(explored)}')
             return current[2], str(current[1].state)
         if str(current[1].state) not in explored:
             explored.add(str(current[1].state))
@@ -41,6 +44,16 @@ def A_star_search(start, h):
                 new.g += 1
                 heapq.heappush(frontier, (new.g + h(new.state), new, current[2] + [Hand.index_to_tile(action)]))
 
+tracemalloc.start()
+start_time = time.time()
 path, ready_hand = A_star_search(start, h)
-print(path)
-print(ready_hand)
+end_time = time.time()
+tracemalloc.stop()
+
+elapsed_time = end_time - start_time
+current, peak = tracemalloc.get_traced_memory()
+print(f"Elapsed time: {elapsed_time:.2f} seconds")
+print(f"Peak memory usage: {peak / 10**6:.2f}MB")
+print(f"Solution path length: {len(path)}")
+print(f"Discarded tiles: {path}")
+print(f"Ready hand: {ready_hand}")

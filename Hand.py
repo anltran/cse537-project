@@ -14,22 +14,22 @@ class Hand:
         honor = ""
 
         for i in range(0, 9):
-            for j in range(self.hand[i]):
+            for _ in range(self.hand[i]):
                 man += str(i % 9 + 1)
         if man:
             man += 'm'
         for i in range(9, 18):
-            for j in range(self.hand[i]):
+            for _ in range(self.hand[i]):
                 pin += str(i % 9 + 1)
         if pin:
             pin += 'p'
         for i in range(18, 27):
-            for j in range(self.hand[i]):
+            for _ in range(self.hand[i]):
                 sou += str(i % 9 + 1)
         if sou:
             sou += 's'
-        for i in range(27, len(self.hand)):
-            for j in range(self.hand[i]):
+        for i in range(27, 34):
+            for _ in range(self.hand[i]):
                 honor += str(i % 9 + 1)
         if honor:
             honor += 'z'
