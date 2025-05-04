@@ -1,6 +1,5 @@
 from collections import deque
 from copy import deepcopy
-import numpy as np
 import Hand
 
 import subprocess
@@ -10,15 +9,17 @@ class MahjongProblem:
 
     def __init__(self, state, deck):
         self.state = Hand.Hand(state) # Hand object containing the list of tiles in the hand
-        self.actions = np.nonzero(self.state.hand)[0] # list of tiles to potentially discard
+        self.actions = set([i for i, x in enumerate(self.state.hand) if x != 0]) # list of tiles to potentially discard
         self.deck = deque(deck) # queue for the remaining tiles in the wall
         self.g = 0
 
     def discard(self, i):
         self.state.hand[i] -= 1
+        if self.state.hand[i] == 0:
+            self.actions.remove(i)
         tile = self.deck.popleft()
-        self.state.hand[Hand.tile_to_index(tile)] += 1
-        self.actions = np.nonzero(self.state.hand)[0]
+        self.state.hand[Hand.tile_to_index[tile]] += 1
+        self.actions.add(Hand.tile_to_index[tile])
         return self
 
     # Create a deepcopy of the current state and apply the action

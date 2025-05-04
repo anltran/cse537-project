@@ -22,3 +22,12 @@ deck = deck[num_tiles:]
 with open('initial_state.txt', 'w') as f:
     f.write(str(Hand("".join(hand))) + '\n')
     f.write(str(deck) + '\n')
+
+import subprocess
+
+path = r'C:\Users\trana\Desktop\cse537-project\ShantenCalculator\ShantenCalculator\bin\Debug\net6.0\ShantenCalculator.exe'
+hand = "".join(hand)
+
+command = [path, hand]
+result = subprocess.run(command, capture_output=True, text=True, check=True).stdout
+print(result)

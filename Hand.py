@@ -90,3 +90,7 @@ def index_to_tile(index):
     else:
         raise ValueError("Tile index out of range")
     return str(rank) + suit
+
+# Use dictionaries to map between tile indices and their string representations
+index_to_tile = { i: index_to_tile(i) for i in range(34) }
+tile_to_index = { index_to_tile[i]: i for i in range(34) }

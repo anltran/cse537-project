@@ -9,6 +9,7 @@ shanten_path = r'C:\Users\trana\Desktop\cse537-project\ShantenCalculator\Shanten
 import time
 import tracemalloc
 
+# with open('easy_tests/2.txt', 'r') as f:
 with open('initial_state.txt', 'r') as f:
     lines = f.readlines()
     hand = lines[0].strip()
@@ -42,16 +43,17 @@ def A_star_search(start, h):
             for action in current[1].actions:
                 new = current[1].transition_function(action)
                 new.g += 1
-                heapq.heappush(frontier, (new.g + h(new.state), new, current[2] + [Hand.index_to_tile(action)]))
+                heapq.heappush(frontier, (new.g + h(new.state), new, current[2] + [Hand.index_to_tile[action]]))
 
 tracemalloc.start()
 start_time = time.time()
 path, ready_hand = A_star_search(start, h)
 end_time = time.time()
-tracemalloc.stop()
 
 elapsed_time = end_time - start_time
 current, peak = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+
 print(f"Elapsed time: {elapsed_time:.2f} seconds")
 print(f"Peak memory usage: {peak / 10**6:.2f}MB")
 print(f"Solution path length: {len(path)}")
