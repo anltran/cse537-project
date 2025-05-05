@@ -6,35 +6,24 @@ class Hand:
     def __init__(self, input):
         self.hand = parse(input)
     
-    # Serializes the hand in a compact and sorted format
+    # Serializes the hand in verbose format
     def __str__(self):
-        man = ""
-        pin = ""
-        sou = ""
-        honor = ""
+        res = ''
 
         for i in range(0, 9):
             for _ in range(self.hand[i]):
-                man += str(i % 9 + 1)
-        if man:
-            man += 'm'
+                res += str(i % 9 + 1) + 'm'
         for i in range(9, 18):
             for _ in range(self.hand[i]):
-                pin += str(i % 9 + 1)
-        if pin:
-            pin += 'p'
+                res += str(i % 9 + 1) + 'p'
         for i in range(18, 27):
             for _ in range(self.hand[i]):
-                sou += str(i % 9 + 1)
-        if sou:
-            sou += 's'
+                res += str(i % 9 + 1) + 's'
         for i in range(27, 34):
             for _ in range(self.hand[i]):
-                honor += str(i % 9 + 1)
-        if honor:
-            honor += 'z'
+                res += str(i % 9 + 1) + 'z'
 
-        return man + pin + sou + honor
+        return res
 
 # Parses a string representing the hand into the int array, can handle verbose or compact format
 def parse(hand):
@@ -90,6 +79,36 @@ def index_to_tile(index):
     else:
         raise ValueError("Tile index out of range")
     return str(rank) + suit
+
+# Serializes the hand in a compact and sorted format
+def compact_serialize(hand):
+    man = ""
+    pin = ""
+    sou = ""
+    honor = ""
+
+    for i in range(0, 9):
+        for _ in range(hand[i]):
+            man += str(i % 9 + 1)
+    if man:
+        man += 'm'
+    for i in range(9, 18):
+        for _ in range(hand[i]):
+            pin += str(i % 9 + 1)
+    if pin:
+        pin += 'p'
+    for i in range(18, 27):
+        for _ in range(hand[i]):
+            sou += str(i % 9 + 1)
+    if sou:
+        sou += 's'
+    for i in range(27, 34):
+        for _ in range(hand[i]):
+            honor += str(i % 9 + 1)
+    if honor:
+        honor += 'z'
+
+    return man + pin + sou + honor
 
 # Use dictionaries to map between tile indices and their string representations
 index_to_tile = { i: index_to_tile(i) for i in range(34) }

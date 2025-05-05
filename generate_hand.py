@@ -1,5 +1,5 @@
 import random
-from Hand import Hand
+from Hand import Hand, compact_serialize
 
 tiles = [
     '1m', '2m', '3m', '4m', '5m', '6m', '7m', '8m', '9m',  # Manzu (Characters)
@@ -14,20 +14,21 @@ tiles = [
 deck = tiles * 4
 random.shuffle(deck)
 
-num_tiles = 13
+num_tiles = 14
 
 hand = deck[:num_tiles]
 deck = deck[num_tiles:]
 
+hand = Hand("".join(hand))
+deck = str(deck)
+
 with open('initial_state.txt', 'w') as f:
-    f.write(str(Hand("".join(hand))) + '\n')
-    f.write(str(deck) + '\n')
+    f.write(compact_serialize(hand.hand) + '\n')
+    f.write(deck + '\n')
 
 import subprocess
 
-path = r'C:\Users\trana\Desktop\cse537-project\ShantenCalculator\ShantenCalculator\bin\Debug\net6.0\ShantenCalculator.exe'
-hand = "".join(hand)
-
-command = [path, hand]
-result = subprocess.run(command, capture_output=True, text=True, check=True).stdout
-print(result)
+path = r'UkeireCalculator\index.js'
+command = ["node", path, str(hand)]
+result = subprocess.run(command, capture_output=True, text=True, check=True).stdout.strip()
+print(f'Initial shanten: {result}')

@@ -3,7 +3,7 @@ from copy import deepcopy
 import Hand
 
 import subprocess
-shanten_path = r'C:\Users\trana\Desktop\cse537-project\ShantenCalculator\ShantenCalculator\bin\Debug\net6.0\ShantenCalculator.exe'
+shanten_path = r'UkeireCalculator\index.js'
 
 class MahjongProblem:
 
@@ -28,8 +28,8 @@ class MahjongProblem:
 
     # Goal is reached if the hand is 0-shanten
     def goal_test(self):
-        command = [shanten_path, str(self)]
-        result = subprocess.run(command, capture_output=True, text=True, check=True).stdout
+        command = ["node", shanten_path, str(self)]
+        result = subprocess.run(command, capture_output=True, text=True, check=True).stdout.strip()
         return result == '0'
 
     # Serialize the state for set membership and printing

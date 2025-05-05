@@ -4,13 +4,13 @@ import Hand
 from MahjongProblem import MahjongProblem
 
 import subprocess
-shanten_path = r'C:\Users\trana\Desktop\cse537-project\ShantenCalculator\ShantenCalculator\bin\Debug\net6.0\ShantenCalculator.exe'
+shanten_path = r'UkeireCalculator\index.js'
 
 import time
 import tracemalloc
 
-# with open('easy_tests/2.txt', 'r') as f:
-with open('initial_state.txt', 'r') as f:
+with open('easy_tests/4.txt', 'r') as f:
+# with open('initial_state.txt', 'r') as f:
     lines = f.readlines()
     hand = lines[0].strip()
     deck = ast.literal_eval(lines[1])
@@ -25,8 +25,8 @@ start = MahjongProblem(hand, deck)
 #     print(start.transition_function(action).state)
 
 def h(state):
-    command = [shanten_path, str(state)]
-    return int(subprocess.run(command, capture_output=True, text=True, check=True).stdout)
+    command = ["node", shanten_path, str(state)]
+    return int(subprocess.run(command, capture_output=True, text=True, check=True).stdout.strip())
 
 def A_star_search(start, h):
     explored = set() # Set of serialized states
@@ -37,7 +37,7 @@ def A_star_search(start, h):
         current = heapq.heappop(frontier)
         if current[1].goal_test():
             print(f'States explored: {len(explored)}')
-            return current[2], str(current[1].state)
+            return current[2], Hand.compact_serialize(current[1].state.hand)
         if str(current[1].state) not in explored:
             explored.add(str(current[1].state))
             for action in current[1].actions:
