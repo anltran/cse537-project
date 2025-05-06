@@ -18,7 +18,8 @@ deck = tiles * 4
 random.shuffle(deck)
 
 num_tiles = 14
-players = 4
+players = 2
+deck_size = (136 - (num_tiles * players)) // players
 
 with open('initial_state.txt', 'w') as f:
     f.write(str(players) + '\n')
@@ -26,6 +27,6 @@ with open('initial_state.txt', 'w') as f:
         hand = Hand("".join(deck[:num_tiles]))
         deck = deck[num_tiles:]
         f.write(compact_serialize(hand.hand) + '\n')
-        player_deck = deck[:20]
-        deck = deck[20:]
+        player_deck = deck[:deck_size]
+        deck = deck[deck_size:]
         f.write(str(player_deck) + '\n')
