@@ -4,7 +4,8 @@ import Hand
 
 import subprocess
 import ast
-shanten_path = r'UkeireCalculator\index.js'
+# shanten_path = r'UkeireCalculator\index.js' # Use this for 1 player
+shanten_path = r'..\UkeireCalculator\index.js' # Use this for 4 players
 
 class MahjongProblem:
 
