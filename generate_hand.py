@@ -29,6 +29,6 @@ with open('initial_state.txt', 'w') as f:
 import subprocess
 
 path = r'UkeireCalculator\index.js'
-command = ["node", path, str(hand)]
+command = ["node", path, str(hand), "0"]
 result = subprocess.run(command, capture_output=True, text=True, check=True).stdout.strip()
 print(f'Initial shanten: {result}')

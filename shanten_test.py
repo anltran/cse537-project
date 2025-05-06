@@ -1,10 +1,10 @@
 import subprocess
 
 path = r'UkeireCalculator\index.js'
-hand = "1499m38p1258s222z"
+hand = "1m1m5m7m9m1p2p3p4p5p8p3z5z6z"
 
 # Command to execute
-command = ["node", path, hand]
+command = ["node", path, hand, "1"]
 
 # Execute the command and capture the output
 result = subprocess.run(command, capture_output=True, text=True, check=True)
